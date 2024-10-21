@@ -1,15 +1,15 @@
 provider "google" {
   project = var.project_id
-  region  = "europe-north1"
+  region  = var.region
 }
 
 resource "google_container_cluster" "primary" {
-  name               = "node-hostname-cluster"
-  location           = "europe-north1-a"
+  name               = var.cluster_name
+  location           = var.zone
   initial_node_count = 1
 
   node_config {
-    machine_type = "e2-micro"
+    machine_type = var.machine_type
   }
 
   deletion_protection = false
@@ -23,26 +23,26 @@ provider "kubernetes" {
 
 resource "kubernetes_deployment" "app_deployment" {
   metadata {
-    name = "node-hostname-app"
+    name = var.app_name
   }
 
   spec {
     replicas = 1
     selector {
       match_labels = {
-        app = "node-hostname-app"
+        app = var.app_label
       }
     }
     template {
       metadata {
         labels = {
-          app = "node-hostname-app"
+          app = var.app_label
         }
       }
       spec {
         container {
-          name  = "node-hostname-container"
-          image = "thealestguy/node-hostname:0.0.1"
+          name  = var.container_name
+          image = var.container_image
           port {
             container_port = 3000
           }
@@ -54,12 +54,12 @@ resource "kubernetes_deployment" "app_deployment" {
 
 resource "kubernetes_service_v1" "app_service" {
   metadata {
-    name = "node-hostname-service"
+    name = var.service_name
   }
 
   spec {
     selector = {
-      app = "node-hostname-app"
+      app = var.app_label
     }
     port {
       port        = 80
