@@ -1,20 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-ingress
+  labels:
+    app: node-hostname-ingress
+  name: node-hostname-ingress
+  namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
-  tls:
-  - secretName: secret
   rules:
   - host: alensiilivask.ddns.net
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
+      - backend:
           service:
             name: node-hostname-service
             port:
               number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - alensiilivask.ddns.net
+    secretName: letsencrypt-prod
