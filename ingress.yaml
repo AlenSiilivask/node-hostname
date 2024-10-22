@@ -6,7 +6,7 @@ metadata:
   name: node-hostname-ingress
   namespace: default
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-testing
     acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
   rules:
@@ -23,4 +23,4 @@ spec:
   tls:
   - hosts:
     - alensiilivask.ddns.net
-    secretName: letsencrypt-prod
+    secretName: letsencrypt-testing
