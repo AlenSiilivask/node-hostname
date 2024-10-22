@@ -26,8 +26,8 @@ jobs:
 
     - name: Add Cloud SDK distribution URI
       run: |
-        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+        curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg > /dev/null
+        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
         sudo apt-get update
 
     - name: Install gke-gcloud-auth-plugin
