@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: node-hostname
-          image: thealestguy/node-hostname:0.0.1
+          image: thealestguy/node-hostname:latest
           ports:
             - containerPort: 3000
