@@ -45,7 +45,7 @@ variable "container_name" {
 variable "container_image" {
   description = "The Docker image for the container"
   type        = string
-  default     = "thealestguy/node-hostname:0.0.1"
+  default     = "thealestguy/node-hostname:latest"
 }
 
 variable "service_name" {
