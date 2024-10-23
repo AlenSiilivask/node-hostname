@@ -1,1 +1,7 @@
 node_modules
+terraform.tfvars
+.terraform*
+tls.crt
+tls.key
+terraform.tfstate.backup
+terraform.tfstate

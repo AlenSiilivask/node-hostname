@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: node-hostname-ingress
+  name: node-hostname-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-testing
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  rules:
+  - host: alensiilivask.ddns.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: node-hostname-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - alensiilivask.ddns.net
+    secretName: letsencrypt-testing
