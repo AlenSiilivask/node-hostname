@@ -96,5 +96,5 @@ jobs:
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
-        kubectl apply -f kubernetes/clusterissuer.yaml
+        # kubectl apply -f kubernetes/clusterissuer.yaml
         kubectl apply -f kubernetes/ingress.yaml
