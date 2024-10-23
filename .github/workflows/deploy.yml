@@ -3,10 +3,10 @@ name: Deploy to Kubernetes
 on:
   push:
     branches:
-      - development
+      - master
   pull_request:
     branches:
-      - development
+      - master
 
 jobs:
   create-cluster:
@@ -85,12 +85,12 @@ jobs:
     - name: Get GKE credentials
       run: gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
 
-    - name: Install cert-manager
-      run: |
-        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.1/cert-manager.yaml
-        kubectl rollout status deployment/cert-manager -n cert-manager --timeout=120s
-        kubectl rollout status deployment/cert-manager-webhook -n cert-manager --timeout=120s
-        kubectl rollout status deployment/cert-manager-cainjector -n cert-manager --timeout=120s
+    # - name: Install cert-manager
+      # run: |
+        # kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.1/cert-manager.yaml
+        # kubectl rollout status deployment/cert-manager -n cert-manager --timeout=120s
+        # kubectl rollout status deployment/cert-manager-webhook -n cert-manager --timeout=120s
+        # kubectl rollout status deployment/cert-manager-cainjector -n cert-manager --timeout=120s
 
     - name: Deploy to Kubernetes
       run: |
